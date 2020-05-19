@@ -1,12 +1,13 @@
-// Copyright (c) 2019 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2020 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
-package script
+package parser
 
 import (
 	"os"
+	"strings"
 	"testing"
 
+	"github.com/vmware-tanzu/crash-diagnostics/script"
 	testcrashd "github.com/vmware-tanzu/crash-diagnostics/testing"
 )
 
@@ -17,20 +18,28 @@ func TestMain(m *testing.M) {
 
 type commandTest struct {
 	name       string
-	command    func() Command
-	test       func(*testing.T, Command)
+	source     func() string
+	script     func(*script.Script) error
+	shouldFail bool
 }
 
-func runCommandTest(t *testing.T, test commandTest) {
-	if test.test == nil {
-		t.Fatalf("test %s missing test function", test.name)
+func runParserTest(t *testing.T, test commandTest) {
+	script, err := Parse(strings.NewReader(test.source()))
+	if err != nil {
+		if !test.shouldFail {
+			t.Fatal(err)
+		}
+		t.Log(err)
+		return
 	}
-
-	if test.command == nil  {
-		t.Fatalf("test %s missing command", test.name)
+	if test.script != nil {
+		if err := test.script(script); err != nil {
+			if !test.shouldFail {
+				t.Fatal(err)
+			}
+			t.Log(err)
+		}
 	}
-
-	test.test(t, test.command())
 }
 
 /*
@@ -172,3 +181,4 @@ func TestCommandParse(t *testing.T) {
 	}
 }
 */
+
