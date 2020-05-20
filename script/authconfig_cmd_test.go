@@ -12,7 +12,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 	tests := []commandTest{
 		{
 			name: "AUTHCONFIG/all params unquoted",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0, "username:test-user private-key:/a/b/c")
 				if err != nil {
 					t.Fatal(err)
@@ -34,7 +34,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 		},
 		{
 			name: "AUTHCONFIG/all params quoted",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0, "username:test-user private-key:'/a/b/c'")
 				if err != nil {
 					t.Fatal(err)
@@ -56,7 +56,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 		},
 		{
 			name: "AUTHCONFIG/only private-key",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0, "private-key:/a/b/c")
 				if err != nil {
 					t.Fatal(err)
@@ -78,7 +78,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 		},
 		{
 			name: "AUTHCONFIG/var expansion",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0, "username:${USER} private-key:$fookey")
 				if err != nil {
 					t.Fatal(err)
@@ -99,7 +99,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 
 		{
 			name: "AUTHCONFIG with bad args",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0,"bar private-key:buzz")
 				if err == nil {
 					t.Fatalf("Expecting failure but err == nil")
@@ -111,7 +111,7 @@ func TestCommandAUTHCONFIG(t *testing.T) {
 
 		{
 			name: "AUTHCONFIG/embedded colon",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAuthConfigCommand(0,"username:test-user private-key:'/a/:b/c'")
 				if err != nil {
 					t.Error(err)

@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 
 type commandTest struct {
 	name       string
-	command    func() Command
+	command    func(*testing.T) Command
 	test       func(*testing.T, Command)
 }
 
@@ -30,7 +30,7 @@ func runCommandTest(t *testing.T, test commandTest) {
 		t.Fatalf("test %s missing command", test.name)
 	}
 
-	test.test(t, test.command())
+	test.test(t, test.command(t))
 }
 
 /*

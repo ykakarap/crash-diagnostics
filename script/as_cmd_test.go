@@ -13,7 +13,7 @@ func TestCommandAS(t *testing.T) {
 	tests := []commandTest{
 		{
 			name: "AS/unquoted",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAsCommand(0, "userid:foo groupid:bar")
 				if err != nil {
 					t.Fatal(err)
@@ -36,7 +36,7 @@ func TestCommandAS(t *testing.T) {
 		},
 		{
 			name: "AS/quoted",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err :=  NewAsCommand(0,`userid:"foo" groupid:bar`)
 				if err != nil {
 					t.Fatal(err)
@@ -58,7 +58,7 @@ func TestCommandAS(t *testing.T) {
 		},
 		{
 			name: "AS/userid only",
-			command: func() Command{
+			command: func(t *testing.T) Command{
 				cmd, err := NewAsCommand(0, "userid:foo")
 				if err != nil {
 					t.Fatal(err)
@@ -81,7 +81,7 @@ func TestCommandAS(t *testing.T) {
 
 		{
 			name: "AS/var expansion",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAsCommand(0, "userid:$USER groupid:$foogid")
 				if err != nil {
 					t.Fatal(err)
@@ -101,7 +101,7 @@ func TestCommandAS(t *testing.T) {
 		},
 		{
 			name: "AS/unsupported args",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewAsCommand(0, "foo:bar fuzz:buzz")
 				if err == nil {
 					t.Fatal("Expected failure, but err is nil")

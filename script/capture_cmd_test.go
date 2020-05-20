@@ -12,7 +12,7 @@ func TestCommandCAPTURE(t *testing.T) {
 	tests := []commandTest{
 		{
 			name: "CAPTURE/single unquoted param",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `CAPTURE /bin/echo "HELLO WORLD"`)
 				if err != nil {
 					t.Fatal(err)
@@ -45,7 +45,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/single quoted param",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `'/bin/echo -n "HELLO WORLD"'`)
 				if err != nil {
 					t.Fatal(err)
@@ -77,7 +77,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/single-quoted named param",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `cmd:'/bin/echo -n "HELLO WORLD"'`)
 				if err != nil {
 					t.Fatal(err)
@@ -109,7 +109,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/double-quoted named param",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `cmd:"/bin/echo -n 'HELLO WORLD'"`)
 				if err != nil {
 					t.Fatal(err)
@@ -141,7 +141,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/unquoted named params",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0,"cmd:/bin/date")
 				if err != nil {
 					t.Fatal(err)
@@ -164,7 +164,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/expanded vars",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `'/bin/echo "$msg"'`)
 				if err != nil {
 					t.Fatal(err)
@@ -188,7 +188,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/with shell",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `shell:"/bin/bash -c" cmd:"echo 'HELLO WORLD'"`)
 				if err != nil {
 					t.Fatal(err)
@@ -224,7 +224,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/with echo",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0,`shell:"/bin/bash -c" cmd:"echo 'HELLO WORLD'" echo:"true"`)
 				if err != nil{
 					t.Fatal(err)
@@ -246,7 +246,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/unquote with embedded colons",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `/bin/echo "HELLO:WORLD"`)
 				if err != nil {
 					t.Fatal(err)
@@ -279,7 +279,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/quoted with embedded colon",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `'/bin/echo -n "HELLO:WORLD"'`)
 				if err != nil {
 					t.Fatal(err)
@@ -311,7 +311,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/single-quoted named-param with embedded colon",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `cmd:'/bin/echo -n "HELLO:WORLD"'`)
 				if err != nil {
 					t.Fatal(err)
@@ -343,7 +343,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/double-quoted named-param with embedded colon",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0,`cmd:"/bin/echo -n 'HELLO:WORLD'"`)
 				if err != nil{
 					t.Fatal(err)
@@ -375,7 +375,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE unquoted named param with multiple embedded colons",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, "cmd:/bin/date:time:")
 				if err != nil{
 					t.Fatal(err)
@@ -398,7 +398,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		},
 		{
 			name: "CAPTURE/shell with embedded colon",
-			command: func() Command {
+			command: func(t *testing.T) Command {
 				cmd, err := NewCaptureCommand(0, `shell:"/bin/bash -c" cmd:"echo 'HELLO:WORLD'"`)
 				if err != nil{
 					t.Fatal(err)
