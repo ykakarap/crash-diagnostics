@@ -154,7 +154,7 @@ func TestCommandENV(t *testing.T) {
 			name: "ENV/quoted embedded colon",
 			command: func(t *testing.T) Command {
 				cmd, err := NewEnvCommand(0,`foo="bar bazz:bat"`)
-				if err == nil {
+				if err != nil {
 					t.Fatal(err)
 				}
 				return cmd
@@ -175,7 +175,7 @@ func TestCommandENV(t *testing.T) {
 			name: "ENV/multiple embedded colon",
 			command: func(t *testing.T) Command {
 				cmd, err := NewEnvCommand(0,`vars:'a="b:g" c=d:d e=f'`)
-				if err == nil {
+				if err != nil {
 					t.Fatal(err)
 				}
 				return cmd

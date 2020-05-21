@@ -99,18 +99,6 @@ func TestCommandAS(t *testing.T) {
 				}
 			},
 		},
-		{
-			name: "AS/unsupported args",
-			command: func(t *testing.T) Command {
-				cmd, err := NewAsCommand(0, "foo:bar fuzz:buzz")
-				if err == nil {
-					t.Fatal("Expected failure, but err is nil")
-				}
-				return cmd
-			},
-			test:func(t *testing.T, cmd Command){
-			},
-		},
 	}
 
 	for _, test := range tests {

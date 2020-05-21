@@ -13,7 +13,7 @@ func TestCommandCAPTURE(t *testing.T) {
 		{
 			name: "CAPTURE/single unquoted param",
 			command: func(t *testing.T) Command {
-				cmd, err := NewCaptureCommand(0, `CAPTURE /bin/echo "HELLO WORLD"`)
+				cmd, err := NewCaptureCommand(0, `/bin/echo "HELLO WORLD"`)
 				if err != nil {
 					t.Fatal(err)
 				}

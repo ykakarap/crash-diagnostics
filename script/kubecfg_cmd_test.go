@@ -93,17 +93,6 @@ func TestCommandKUBECONFIG(t *testing.T) {
 			},
 		},
 		{
-			name: "KUBECONFIG/multiple paths",
-			command: func(t *testing.T) Command {
-				cmd, err := NewKubeConfigCommand(0,"/a/b/c /d/e/f")
-				if err == nil {
-					t.Fatal("Expecting failure, but error is nil")
-				}
-				return cmd
-			},
-			test: func(t *testing.T, c Command){},
-		},
-		{
 			name: "KUBECONFIG/embedded colon",
 			command: func(t *testing.T) Command {
 				cmd, err := NewKubeConfigCommand(0,"/a/:b/c")
