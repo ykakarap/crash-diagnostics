@@ -22,15 +22,13 @@ type commandTest struct {
 }
 
 func runCommandTest(t *testing.T, test commandTest) {
-	if test.test == nil {
-		t.Fatalf("test %s missing test function", test.name)
-	}
-
 	if test.command == nil  {
 		t.Fatalf("test %s missing command", test.name)
 	}
 
-	test.test(t, test.command(t))
+	if test.test != nil {
+		test.test(t, test.command(t))
+	}
 }
 
 /*
